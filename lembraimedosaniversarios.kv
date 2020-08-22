@@ -3,7 +3,7 @@ ScreenManager:
         name:'Principal'
 
 <MyPopup@MDDialog>:
-    id:mypop
+    id: mypop
     name:"MyPopup"
     auto_dismiss: False
     Button:
@@ -11,6 +11,17 @@ ScreenManager:
         on_release: root.dismiss()
 
 <Main>:
+    on_enter: root.printar_label()
     AnchorLayout:
         MDLabel:
             id:aniversariododia
+            halign:'center'
+
+        BoxLayout:
+            padding:10
+            MDTextButton:
+                id: sair
+                text: 'Sair'
+                on_press: app.stop()
+
+

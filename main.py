@@ -1,7 +1,9 @@
+from datetime import date
+
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.uix.label import MDLabel
-from dbhandling import AniversariosDB
+from dbhandling import AniversariosDB, Meses
 from plyer import vibrator
 
 
@@ -15,24 +17,26 @@ class Main(Screen):
     def on_pre_enter(self, *args):
         aniversarios = AniversariosDB()
         if aniversarios.verificar_aniversarios() != False:
-            nome = aniversarios.verificar_aniversarios()[0]
-            dia = aniversarios.verificar_aniversarios()[1]
-            mes = aniversarios.verificar_aniversarios()[2]
-            # print(f'Parabéns, {nome}!!! \nO aniversário é hoje, dia {dia}/{mes}')
-            # vibrator.vibrate(10)
-            # self.ids.aniversariododia.text = f'Parabéns, {nome}!!! \nO aniversário é hoje, dia {dia}/{mes}'
-            self.add_widget(MDLabel(text=f'Parabéns, {nome}!!! \nO aniversário é hoje, dia {dia}/{mes}',
-                                    size_hint_x=0.5))
+            self.nome = aniversarios.verificar_aniversarios()[0]
+            self.dia = aniversarios.verificar_aniversarios()[1]
+            self.mes = aniversarios.verificar_aniversarios()[2]
+            self.mes_extenso = Meses()
 
 
         else:
             print('Nenhum Aniversariante hoje')
 
+# Usa o label já existente no arquivo .kv
+
+    def printar_label(self, *args):
+        self.ids.aniversariododia.text = self.ids.aniversariododia.text = f'Parabéns, {self.nome}!!! \nO aniversário é hoje, dia {self.dia} de' \
+                                         f' {self.mes_extenso.mes_por_extenso[self.mes-1]} de {date.today().year}'
 
 
 # Cria o aplicativo e retorna o Gerenciador
 class LembraimeDosAniversariosApp(MDApp):
 
+# Função para não dar crash no android quando o aplicativo pausar
     def on_pause(self):
         return
 
