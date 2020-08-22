@@ -1,6 +1,8 @@
 import plyer
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen, ScreenManager
+from kivymd.uix.label import MDLabel
+
 from dbhandling import AniversariosDB
 from plyer import vibrator
 
@@ -13,8 +15,12 @@ class Main(Screen):
     def on_pre_enter(self, *args):
         aniversarios = AniversariosDB()
         if aniversarios.verificar_aniversarios() != False:
-            print(aniversarios.verificar_aniversarios())
-            vibrator.vibrate(10)
+            nome = aniversarios.verificar_aniversarios()[0]
+            dia = aniversarios.verificar_aniversarios()[1]
+            mes = aniversarios.verificar_aniversarios()[2]
+            print(f'Parabéns, {nome}!!! \nO aniversário é hoje, dia {dia}/{mes}')
+            # vibrator.vibrate(10)
+            self.add_widget(MDLabel(text=f'Parabéns, {nome}!!! \nO aniversário é hoje, dia {dia}/{mes}'))
 
 
         else:

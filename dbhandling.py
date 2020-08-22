@@ -40,7 +40,7 @@ class AniversariosDB:
 
         conn = sqlite3.connect("aniversarios.db")
         c = conn.cursor()
-        resultado = c.execute(f'''SELECT nome FROM aniversarios WHERE dia IS {date.today().day+1} AND mes IS
+        resultado = c.execute(f'''SELECT nome FROM aniversarios WHERE dia IS {date.today().day} AND mes IS
 {date.today().month}''').fetchall()
 
         try:
