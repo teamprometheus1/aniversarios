@@ -12,16 +12,39 @@ ScreenManager:
 
 <Main>:
     on_enter: root.printar_label()
-    AnchorLayout:
-        MDLabel:
-            id:aniversariododia
-            halign:'center'
+    GridLayout:
+        rows: 3
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            canvas.before:
+                Color:
+                    rgba:(1,1,0,0.30)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            MDLabel:
+                id:aniversariododia
+                font_size:'50sp'
+                halign:'center'
+                theme_text_color: 'Custom'
+                text_color:(0.5,0,0.89, 0.8)
 
-        BoxLayout:
+        AnchorLayout:
             padding:10
+            size_hint_y:None
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            canvas.before:
+                Color:
+                    rgba:(0.65,0.35,0,0.7)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
             MDTextButton:
                 id: sair
                 text: 'Sair'
+                font_size:'38sp'
+                halign:'center'
+                valign:'center'
                 on_press: app.stop()
-
-

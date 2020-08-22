@@ -29,7 +29,7 @@ class Main(Screen):
 # Usa o label já existente no arquivo .kv
 
     def printar_label(self, *args):
-        self.ids.aniversariododia.text = self.ids.aniversariododia.text = f'Parabéns, {self.nome}!!! \nO aniversário é hoje, dia {self.dia} de' \
+        self.ids.aniversariododia.text = self.ids.aniversariododia.text = f'Parabéns, {self.nome}!!! \n\n\n\n\nO aniversário é hoje, dia {self.dia} de' \
                                          f' {self.mes_extenso.mes_por_extenso[self.mes-1]} de {date.today().year}'
 
 
@@ -38,7 +38,7 @@ class LembraimeDosAniversariosApp(MDApp):
 
 # Função para não dar crash no android quando o aplicativo pausar
     def on_pause(self):
-        return
+        return True
 
     def build(self):
         sm = ScreenManager()
