@@ -2,11 +2,16 @@ import sqlite3
 import json
 from datetime import date
 
+#arquivo para lidar com a base de dados
+
+
+#Correlaciona o nome do mês do aniversário com o número do mês
 class Meses:
     mes_por_extenso = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
     mes_numeral = [_ for _ in range(1,13)]
 
 
+#abre e cria a base de dados e usa a classe de Meses para correlacionar
 class AniversariosDB:
     def __init__(self):
         with open("aniversariosjson.json", "r") as f:
@@ -17,7 +22,7 @@ class AniversariosDB:
                     self.criar_database()
                     self.registrar(key, int(value[0]), int(meses.mes_por_extenso.index(value[1].lower()))+1)
 
-
+    #efetivamente cria e salva a base de dados e tabela.
     def criar_database(self):
         conn = sqlite3.connect('aniversarios.db')
         c = conn.cursor()
@@ -26,7 +31,8 @@ class AniversariosDB:
         conn.commit()
         conn.close()
 
-
+    #registra aniversários na base de dados (vindo do arquivo JSON)
+    #Permite criar um formulário para registrar novos aniversários
     def registrar(self, nome, dia, mes):
 
         values = nome, dia, mes
@@ -35,6 +41,8 @@ class AniversariosDB:
         c.execute('''INSERT OR IGNORE INTO aniversarios (nome, dia, mes) VALUES (?,?,?)''', values)
         conn.commit()
         conn.close()
+
+    # Verifica aniversários do dia e, caso exista, retorna os dados pertinentes
 
     def verificar_aniversarios(self):
 
@@ -50,6 +58,8 @@ class AniversariosDB:
         except Exception:
             return False
 
+#cria instância da classe aniversário e inicia em cascata.
 
-registrar = AniversariosDB()
-registrar.verificar_aniversarios()
+
+# registrar = AniversariosDB()
+# registrar.verificar_aniversarios()
